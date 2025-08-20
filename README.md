@@ -137,3 +137,20 @@ headline_df = pd.concat(
 - 🔹 pd.concat(...) adds the new row to the existing headline_df table.
 - 🔹 ignore_index=True resets the row numbers so they stay in order.
 
+- # Save to file
+try:
+    headline_df.to_csv("funny_headlines.csv", index=False, encoding="utf-8")
+    logging.info(f"Headline generated: {headline}")
+except Exception as e:
+    logging.error(f"Error saving headline: {e}")
+
+- 🔹 This block tries to save all the headlines into a CSV file named funny_headlines.csv.
+- 🔹 headline_df.to_csv(...) writes the DataFrame to a file:
+   - "funny_headlines.csv" is the file name.
+   - index=False means it won’t include row numbers in the file.
+   - encoding="utf-8" ensures special characters (like emojis) are saved correctly.
+- 🔹 logging.info(...) records a success message in the log file.
+- 🔹 If something goes wrong (like file permission issues), the except block catches the error.
+- 🔹 logging.error(...) saves the error message in the log file for debugging.
+
+
