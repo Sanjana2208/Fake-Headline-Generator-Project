@@ -168,6 +168,56 @@ def show_history():
    - headline_df["Headline"].tolist() gets all the headlines as a list.
    - "\n\n".join(...) joins them with double line breaks for better readability.
    - messagebox.showinfo(...) displays the headlines in a pop-up titled "Headline History".
+ 
+- # GUI Setup
+root = tk.Tk()
+- 🔹 Creates the main window for your app.
+
+root.title("📰 Fake News Headline Generator")
+- 🔹 Sets the title of the window (shown at the top).
+
+root.geometry("650x450")
+- 🔹 Sets the size of the window: 650 pixels wide and 450 pixels tall.
+
+root.config(bg="#e6f2ff")
+- 🔹 Sets the background color of the window to a light blue shade.
+
+tk.Label(root, text="Select Category:", font=("Arial", 14), bg="#e6f2ff").pack(pady=10)
+- 🔹 Adds a label that says "Select Category:".
+- 🔹 Uses Arial font, size 14, and matches the background color.
+- 🔹 pady=10 adds vertical space around the label.
+
+category_var = tk.StringVar(value="random")
+- 🔹 Creates a variable to store the selected category.
+- 🔹 Default value is set to "random".
+
+category_menu = tk.OptionMenu(root, category_var, *subjects.keys())
+category_menu.pack()
+- 🔹 Creates a dropdown menu with category options (like sports, politics).
+- 🔹 Uses the keys from the subjects dictionary.
+- 🔹 .pack() places it in the window.
+
+headline_label = tk.Label(root, text="", wraplength=550, font=("Arial", 12), bg="#e6f2ff", fg="darkblue")
+headline_label.pack(pady=20)
+- 🔹 Adds a label to show the generated headline.
+- 🔹 wraplength=550 ensures long headlines wrap within the window.
+- 🔹 fg="darkblue" sets the text color.
+
+tk.Button(root, text="Generate Headline", command=generate_headline, font=("Arial", 12)).pack(pady=5)
+- 🔹 Adds a button labeled "Generate Headline".
+- 🔹 When clicked, it runs the generate_headline function.
+
+tk.Button(root, text="Show History", command=show_history, font=("Arial", 12)).pack(pady=5)
+- 🔹 Adds a button labeled "Show History".
+- 🔹 When clicked, it shows all previously generated headlines.
+
+tk.Button(root, text="Exit", command=root.quit, font=("Arial", 12)).pack(pady=5)
+- 🔹 Adds an "Exit" button to close the app.
+
+root.mainloop()
+- 🔹 Starts the GUI event loop.
+- 🔹 Keeps the window open and responsive until the user closes it.
+
 
 
 
