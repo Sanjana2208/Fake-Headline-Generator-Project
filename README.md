@@ -153,4 +153,21 @@ except Exception as e:
 - 🔹 If something goes wrong (like file permission issues), the except block catches the error.
 - 🔹 logging.error(...) saves the error message in the log file for debugging.
 
+- # Show history
+def show_history():
+    if headline_df.empty:
+        messagebox.showinfo("History", "No headlines generated yet.")
+    else:
+        history_text = "\n\n".join(headline_df["Headline"].tolist())
+        messagebox.showinfo("Headline History", history_text)
+
+- 🔹 This function displays all the previously generated headlines in a pop-up window.
+- 🔹 It first checks if the DataFrame headline_df is empty:
+   - If yes, it shows a message saying "No headlines generated yet."
+- 🔹 If there are headlines:
+   - headline_df["Headline"].tolist() gets all the headlines as a list.
+   - "\n\n".join(...) joins them with double line breaks for better readability.
+   - messagebox.showinfo(...) displays the headlines in a pop-up titled "Headline History".
+
+
 
