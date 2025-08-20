@@ -79,3 +79,61 @@ places_or_things = {
 # Your headline becomes:
 # "Virat Kohli scores century against during IPL match"
 # You’ll combine these randomly to make new, funny headlines.
+
+emojis = ["😂", "🤣", "😳", "🤯", "😎", "🙈"]
+emoji_weights = [0.2, 0.2, 0.15, 0.15, 0.2, 0.1]  # NumPy will use these for weighted selection
+- 🔹 This creates a list of emojis to add fun to your headlines.
+- 🔹 emoji_weights defines how likely each emoji is to be picked.
+  For example, 😂 and 🤣 have higher chances (0.2), while 🙈 is less likely (0.1).
+- 🔹 NumPy will use these weights to randomly choose one emoji.
+
+# Text-to-speech in a separate thread
+def speak_text(text):
+    threading.Thread(target=lambda: engine.say(text) or engine.runAndWait()).start()
+- 🔹 This function makes the computer speak the headline.
+- 🔹 It runs in a separate thread so the app doesn’t freeze while speaking.
+- 🔹 engine.say(text) prepares the speech, and engine.runAndWait() plays it.
+
+# Generate headline
+def generate_headline():
+    category = category_var.get()
+    - 🔹 Gets the selected category from the GUI (like "sports" or "politics").
+
+    if category not in subjects:
+        messagebox.showerror("Error", "Please select a valid category.")
+        logging.error("Invalid category selected.")
+        return
+    - 🔹 Checks if the selected category is valid.
+    - 🔹 If not, shows an error message and logs the mistake.
+
+    subject = random.choice(subjects[category])
+    action = random.choice(actions[category])
+    place_or_thing = random.choice(places_or_things[category])
+    emoji = np.random.choice(emojis, p=emoji_weights)
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    - 🔹 Picks one random subject, action, and place from the selected category.
+    - 🔹 Picks one emoji using the weights.
+    - 🔹 Gets the current time in a readable format.
+
+    headline = f"{emoji} [{timestamp}] BREAKING NEWS: {subject} {action} {place_or_thing}"
+    headline_label.config(text=headline)
+    - 🔹 Combines everything into one funny headline.
+    - 🔹 Displays the headline in the GUI using headline_label.
+
+# Speak
+speak_text(headline)
+- 🔹 This line calls the speak_text function to make the computer say the headline out loud.
+- 🔹 It uses text-to-speech in a separate thread, so the app stays responsive while speaking.
+
+# Save to DataFrame
+global headline_df
+headline_df = pd.concat(
+    [headline_df, pd.DataFrame([[timestamp, category, headline]], columns=headline_df.columns)],
+    ignore_index=True
+)
+- 🔹 Declares headline_df as a global variable so it can be updated inside the function.
+- 🔹 Creates a new row with the current timestamp, selected category, and generated headline.
+- 🔹 pd.DataFrame(...) creates a mini table with just that one row.
+- 🔹 pd.concat(...) adds the new row to the existing headline_df table.
+- 🔹 ignore_index=True resets the row numbers so they stay in order.
+
